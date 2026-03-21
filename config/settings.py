@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage', # Cloudinary кошулду (staticfiles'тан жогору болушу керек)
     'django.contrib.staticfiles',
+    'cloudinary',         # Cloudinary кошулду
     'shop',
-
-
 ]
 
 MIDDLEWARE = [
@@ -130,6 +130,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Видео жана башка файлдар катасыз иштеши үчүн жөнөкөй сактагыч:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# Cloudinary Settings (Сүрөттөр жоголбошу үчүн)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dtuyalp6m',
+    'API_KEY': '636667862685854',
+    'API_SECRET': 'PgRp9Z7dBhdkoVTk0K1sa1I1390'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = '/media/'
 
 # Telegram Bot Settings
 TELEGRAM_BOT_TOKEN = '8450866956:AAFYekwt1Sgcz606O46tB37mKAmI3Tsptd4'
