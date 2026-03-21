@@ -1,0 +1,186 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}SSMOD | Биздин топтомдор{% endblock %}
+
+{% block content %}
+<style>
+    .price-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 80px 20px;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .page-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 15px;
+        color: var(--text);
+    }
+
+    /* СЕТКА (Grid) */
+    .price-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .luxury-card {
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--border);
+        border-radius: 40px;
+        overflow: hidden;
+        transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .luxury-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    }
+
+    .card-img-box {
+        width: 45%;
+        height: 380px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .card-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.8s;
+    }
+
+    .luxury-card:hover .card-img-box img {
+        transform: scale(1.1);
+    }
+
+    .card-info {
+        width: 55%;
+        padding: 40px;
+    }
+
+    /* ЖАҢЫ: Даяр болуу убактысы үчүн стиль */
+    .ready-time-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.7rem;
+        color: #888;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .piece-tag {
+        display: block;
+        color: var(--accent);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .card-info h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+
+    .item-price {
+        display: block;
+        font-size: 1.8rem;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        margin: 20px 0 30px 0;
+        color: var(--text);
+    }
+
+    .buy-btn-premium {
+        display: inline-block;
+        padding: 18px 40px;
+        background: var(--text);
+        color: var(--bg);
+        text-decoration: none;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: 0.4s;
+    }
+
+    .buy-btn-premium:hover {
+        background: #25d366; /* WhatsApp жашыл түсү */
+        color: white;
+        transform: scale(1.05);
+    }
+
+    /* МОБИЛДИК ВЕРСИЯ */
+    @media (max-width: 991px) {
+        .price-grid { grid-template-columns: 1fr; }
+        .luxury-card { flex-direction: column; border-radius: 30px; }
+        .card-img-box, .card-info { width: 100%; }
+        .card-img-box { height: 300px; }
+        .card-info { padding: 40px 30px; text-align: center; }
+        .ready-time-tag { justify-content: center; }
+    }
+</style>
+
+<div class="price-wrapper">
+    <div class="page-header" data-aos="fade-down">
+        <p style="letter-spacing: 5px; opacity: 0.5; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 15px;">Премиум тандоо</p>
+        <h1>Топтомдор жана Баалар</h1>
+    </div>
+
+    <div class="price-grid">
+    {% for set in sets %}
+    <div class="luxury-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+        <div class="card-img-box">
+            <img src="{{ set.image.url }}" alt="{{ set.title }}">
+        </div>
+        <div class="card-info">
+            <div class="ready-time-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Даяр болот: {{ set.ready_time }}
+            </div>
+            <span class="piece-tag">{{ set.pieces }} даана</span>
+            <h3>{{ set.title }}</h3>
+            <span class="item-price">{{ set.price }} сом</span>
+            
+            <a href="https://wa.me/996704034209?text={{ set.whatsapp_msg|urlencode }}" 
+               class="buy-btn-premium" 
+               target="_blank">
+               Заказ берүү
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1/-1; text-align: center; padding: 50px; opacity: 0.5;">
+        <p>Азырынча топтомдор кошула элек.</p>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({ duration: 1000, once: true });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,235 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --accent-rose: #ff4d6d;
+        --soft-gold: #d4af37;
+        --glass-bg: rgba(255, 255, 255, 0.03);
+    }
+
+    .hero-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(circle at top right, #fff5f7 0%, var(--bg) 60%);
+        padding: 60px 0;
+    }
+
+    /* ФОНДОГУ КУЛПУНАЙЛАР (Кыймылдап турат) */
+    .bg-blobs {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .blob {
+        position: absolute;
+        background: var(--accent-rose);
+        filter: blur(80px);
+        border-radius: 50%;
+        opacity: 0.1;
+        animation: float-blob 20s infinite alternate;
+    }
+
+    @keyframes float-blob {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(100px, 50px) scale(1.2); }
+    }
+
+    .main-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 1300px;
+        padding: 0 40px;
+        z-index: 10;
+    }
+
+    /* ТЕКСТ БӨЛҮГҮ */
+    .hero-text { 
+        flex: 1;
+        max-width: 600px; 
+    }
+
+    .premium-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 16px;
+        background: rgba(255, 77, 109, 0.1);
+        border-radius: 50px;
+        color: var(--accent-rose);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        border: 1px solid rgba(255, 77, 109, 0.2);
+    }
+
+    .hero-text h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3rem, 6vw, 5.5rem);
+        line-height: 1;
+        margin-bottom: 25px;
+        color: var(--text);
+    }
+
+    .hero-text h1 em {
+        color: var(--accent-rose);
+        font-style: italic;
+        font-weight: 400;
+    }
+
+    .hero-text p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        opacity: 0.8;
+        margin-bottom: 40px;
+        border-left: 3px solid var(--accent-rose);
+        padding-left: 20px;
+    }
+
+    /* КӨРҮҮ БАТЫРМАСЫ (Hover эффекти менен) */
+    .cta-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .order-btn {
+        position: relative;
+        padding: 18px 45px;
+        background: var(--text);
+        color: var(--bg);
+        text-decoration: none;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        overflow: hidden;
+        transition: 0.5s;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .order-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(255, 77, 109, 0.2);
+        background: var(--accent-rose);
+    }
+
+    /* ВИДЕО БӨЛҮГҮ (Айнек эффект) */
+    .video-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .glass-card {
+        position: relative;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    }
+
+    .strawberry-video {
+        width: 450px;
+        height: auto;
+        border-radius: 20px;
+        mix-blend-mode: multiply; /* Сүрөт ак фондо болсо */
+        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .glass-card:hover .strawberry-video {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    /* ТҮН РЕЖИМИНДЕГИ ӨЗГӨРҮҮЛӨР */
+    [data-theme="dark"] .strawberry-video {
+        mix-blend-mode: screen;
+        filter: brightness(1.2) contrast(1.1);
+    }
+
+    [data-theme="dark"] .hero-section {
+        background: radial-gradient(circle at top right, #1a0a0c 0%, var(--bg) 60%);
+    }
+
+    /* 🔥 МОБИЛДИК ВЕРСИЯ */
+    @media (max-width: 991px) {
+        .main-container {
+            flex-direction: column;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero-text { order: 2; margin-top: 50px; }
+        .video-wrapper { order: 1; width: 100%; }
+        
+        .strawberry-video { width: 300px; }
+        .hero-text p { border-left: none; padding-left: 0; }
+        .cta-wrapper { justify-content: center; }
+        
+        .hero-text h1 { font-size: 3.5rem; }
+    }
+</style>
+
+<section class="hero-section">
+    <div class="bg-blobs">
+        <div class="blob" style="width: 400px; height: 400px; right: -100px; top: -100px;"></div>
+        <div class="blob" style="width: 300px; height: 300px; left: -50px; bottom: 10%; background: #ff758c;"></div>
+    </div>
+
+    <div class="main-container">
+        <div class="hero-text" data-aos="fade-right">
+            <div class="premium-badge">
+                <span class="dot">●</span> Эксклюзивдүү Кулпунай
+            </div>
+            <h1>Бельгия <br><em>Шоколадында</em></h1>
+            <p>Ар бир кулпунай — бул өзүнчө искусство. Биз эң таза шоколадды жана тандалган мөмөлөрдү гана колдонобуз.</p>
+            
+            <div class="cta-wrapper">
+                <a href="{% url 'price' %}" class="order-btn">Коллекцияны көрүү</a>
+            </div>
+        </div>
+
+        <div class="video-wrapper" data-aos="fade-left">
+            <div class="glass-card">
+                <video class="strawberry-video" autoplay muted loop playsinline>
+                    <source src="{% static 'videos/strawberry_360.mp4' %}" type="video/mp4">
+                    Сиздин браузер видеону колдобойт.
+                </video>
+            </div>
+        </div>
+    </div>
+</section>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({ 
+            duration: 1200, 
+            once: true,
+            offset: 100
+        });
+    });
+</script>
+{% endblock %}

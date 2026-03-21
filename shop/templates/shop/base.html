@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SSMOD | Luxury Desserts{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { 
+            --accent: #ff4d6d; 
+            --bg: #f8f8f8; 
+            --text: #1a1a1a;
+            --border: rgba(0,0,0,0.06);
+            --glass: rgba(255, 255, 255, 0.8);
+            --toggle-bg: #e0e0e0;
+            --nav-bg: rgba(242, 242, 242, 0.95);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d0d0d;
+            --text: #ffffff; 
+            --border: rgba(255,255,255,0.1);
+            --glass: rgba(18, 18, 18, 0.9);
+            --toggle-bg: #2a2a2a;
+            --nav-bg: #121212; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+        .logo span { color: var(--accent); font-style: italic; font-weight: 400; }
+
+        .controls { display: flex; align-items: center; gap: 15px; }
+
+        .theme-switch {
+            width: 50px;
+            height: 26px;
+            background: var(--toggle-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 3px;
+            transition: 0.4s;
+            border: 1px solid var(--border);
+        }
+
+        .switch-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--text);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            font-size: 10px;
+        }
+
+        [data-theme="dark"] .switch-dot {
+            transform: translateX(24px);
+            background: var(--accent);
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border: 1px solid var(--text); 
+            border-radius: 50px;
+            transition: 0.3s;
+            color: var(--text);
+        }
+        .menu-btn span { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .burger-icon { width: 15px; height: 1.5px; background: currentColor; position: relative; }
+        .burger-icon::before { content: ''; width: 100%; height: 1.5px; background: currentColor; position: absolute; top: -5px; left: 0; }
+        .burger-icon::after { content: ''; width: 100%; height: 1.5px; background: currentColor; position: absolute; top: 5px; left: 0; }
+
+        nav {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 260px;
+            height: 100vh;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border);
+            padding: 60px 35px;
+            transition: 0.5s cubic-bezier(0.8, 0, 0.2, 1);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        nav.active { right: 0; }
+
+        .close-nav { 
+            font-size: 0.7rem; 
+            cursor: pointer; 
+            opacity: 0.8; 
+            text-align: right; 
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        nav ul { list-style: none; }
+        nav ul li { margin-bottom: 25px; opacity: 0; transform: translateX(15px); transition: 0.4s; }
+        nav.active ul li { opacity: 1; transform: translateX(0); }
+        
+        nav ul li a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none; 
+            color: var(--text); 
+            transition: 0.3s;
+        }
+        nav ul li a:hover { color: var(--accent); padding-left: 5px; }
+
+        .nav-footer {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .content { min-height: 100vh; }
+
+        .lang-btn {
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 12px 4%; }
+            .logo { font-size: 1.3rem; }
+            nav { width: 230px; }
+        }
+    </style>
+</head>
+<body id="body">
+
+    <header>
+        <a href="/" class="logo">SS<span>mod.</span></a>
+        
+        <div class="controls">
+            <button class="lang-btn" id="langBtn">KG</button>
+            
+            <div class="theme-switch" id="themeToggle">
+                <div class="switch-dot" id="switchDot">☀️</div>
+            </div>
+
+            <div class="menu-btn" id="menuOpen">
+                <span>Menu</span>
+                <div class="burger-icon"></div>
+            </div>
+        </div>
+    </header>
+
+    <nav id="sideNav">
+        <div>
+            <div class="close-nav" id="menuClose">✕ ЖАБУУ</div>
+            <ul>
+                <li style="transition-delay: 0.1s;"><a href="{% url 'home' %}">Башкы бет</a></li>
+                <li style="transition-delay: 0.2s;"><a href="{% url 'about' %}">Биз жөнүндө</a></li>
+                <li style="transition-delay: 0.3s;"><a href="{% url 'price' %}">Баалар</a></li>
+                <li style="transition-delay: 0.4s;"><a href="{% url 'reviews' %}">Пикирлер</a></li>
+                <li style="transition-delay: 0.5s;"><a href="{% url 'contact' %}">Байланыш</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-footer">
+            EST. 2024 • OSH CITY
+        </div>
+    </nav>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        const menuOpen = document.getElementById('menuOpen');
+        const menuClose = document.getElementById('menuClose');
+        const sideNav = document.getElementById('sideNav');
+        const themeToggle = document.getElementById('themeToggle');
+        const switchDot = document.getElementById('switchDot');
+        const body = document.getElementById('body');
+
+        menuOpen.onclick = (e) => { 
+            e.stopPropagation(); 
+            sideNav.classList.add('active'); 
+        };
+        menuClose.onclick = () => sideNav.classList.remove('active');
+
+        const updateIcon = () => {
+            switchDot.innerText = body.hasAttribute('data-theme') ? '🌙' : '☀️';
+        };
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            updateIcon();
+        }
+
+        themeToggle.onclick = () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateIcon();
+        };
+
+        const langBtn = document.getElementById('langBtn');
+        const langs = ['KG', 'RU', 'EN'];
+        let idx = 0;
+        langBtn.onclick = () => {
+            idx = (idx + 1) % langs.length;
+            langBtn.innerText = langs[idx];
+        };
+
+        document.onclick = (e) => {
+            if (!sideNav.contains(e.target) && !menuOpen.contains(e.target)) {
+                sideNav.classList.remove('active');
+            }
+        };
+    </script>
+</body>
+</html>
