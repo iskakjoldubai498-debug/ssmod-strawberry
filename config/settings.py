@@ -134,3 +134,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # Telegram Bot Settings
 TELEGRAM_BOT_TOKEN = '8450866956:AAFYekwt1Sgcz606O46tB37mKAmI3Tsptd4'
 TELEGRAM_CHAT_ID = '7678418524'
+# settings.py аягына кошуңуз
+WHITENOISE_MIME_TYPES = {
+    '.mp4': 'video/mp4',
+}
