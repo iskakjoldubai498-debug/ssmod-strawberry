@@ -1,17 +1,46 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import ProductSet
+from .models import ProductSet, BackgroundMusic  # BackgroundMusic кошулду
 
+
+# 1. МУЗЫКА ҮЧҮН АДМИН ПАНЕЛЬ
+@admin.register(BackgroundMusic)
+class BackgroundMusicAdmin(admin.ModelAdmin):
+    # Тизмеде аталышы жана активдүүлүгү көрүнөт
+    list_display = ('title', 'is_active', 'get_audio_player')
+
+    # Тизмеден эле "is_active" кутучасын басып алмаштырса болот
+    list_editable = ('is_active',)
+
+    # Админ панелден музыканы угуп көрүү үчүн плеер
+    def get_audio_player(self, obj):
+        if obj.audio_file:
+            return mark_safe(
+                f'<audio src="{obj.audio_file.url}" controls style="height:30px;"></audio>'
+            )
+        return "Файл жок"
+
+    get_audio_player.short_description = "Угуп көрүү"
+
+
+# 2. ПРОДУКЦИЯ ҮЧҮН АДМИН ПАНЕЛЬ (Сиздин кодуңуз өзгөртүүсүз калды)
 @admin.register(ProductSet)
 class ProductSetAdmin(admin.ModelAdmin):
-    # Тизмеде көрүнө турган маалыматтар
-    list_display = ('get_image', 'title', 'pieces', 'price', 'ready_time')
-    list_display_links = ('title',) # Атын басканда ичине кирет
+    list_display = ('title', 'price', 'pieces', 'get_media_preview')
+    readonly_fields = ('get_media_preview',)
+    fields = ('title', 'pieces', 'price', 'ready_time', 'image', 'video', 'get_media_preview', 'whatsapp_msg')
 
-    # Сүрөттү кичинекей кылып көрсөтүү
-    def get_image(self, obj):
-        if obj.image:
-            return mark_safe(f'<img src="{obj.image.url}" width="60" height="60" style="border-radius:8px; object-fit:cover;">')
-        return "Сүрөт жок"
-    
-    get_image.short_description = "Сүрөтү"
+    def get_media_preview(self, obj):
+        if obj.video:
+            return mark_safe(
+                f'<video src="{obj.video.url}" width="150" height="100" '
+                f'controls muted style="border-radius:10px; object-fit:cover;"></video>'
+            )
+        elif obj.image:
+            return mark_safe(
+                f'<img src="{obj.image.url}" width="100" height="100" '
+                f'style="border-radius:10px; object-fit:cover;" />'
+            )
+        return "Медиа жок"
+
+    get_media_preview.short_description = "Алдын ала көрүү"

@@ -1,186 +1,237 @@
 {% extends 'shop/base.html' %}
 {% load static %}
 
-{% block title %}SSMOD | Биздин топтомдор{% endblock %}
-
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
 <style>
-    .price-wrapper {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 80px 20px;
-    }
+:root {
+    --royal-gold: #d4af37;
+    --gold-gradient: linear-gradient(135deg, #d4af37, #f1d37e, #d4af37);
+}
 
-    .page-header {
-        text-align: center;
-        margin-bottom: 80px;
-    }
+/* WRAPPER */
+.showcase-wrapper {
+    max-width: 1400px;
+    margin: auto;
+    padding: 100px 20px;
+    font-family: 'Montserrat', sans-serif;
 
-    .page-header h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        margin-bottom: 15px;
-        color: var(--text);
-    }
+    /* ✅ ТЕКСТ ДАЙЫМА АК */
+    color: #ffffff;
+}
 
-    /* СЕТКА (Grid) */
-    .price-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-    }
+/* HEADER */
+.showcase-header {
+    text-align: center;
+    margin-bottom: 100px;
+}
 
-    .luxury-card {
-        background: var(--glass);
-        backdrop-filter: blur(15px);
-        border: 1px solid var(--border);
-        border-radius: 40px;
-        overflow: hidden;
-        transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
+.showcase-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 12px;
+    background: linear-gradient(120deg, #d4af37, #fff2b0, #d4af37);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+}
 
-    .luxury-card:hover {
-        transform: translateY(-10px);
-        border-color: var(--accent);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-    }
+@keyframes shine {
+    to { background-position: 200% center; }
+}
 
-    .card-img-box {
-        width: 45%;
-        height: 380px;
-        overflow: hidden;
-        position: relative;
-    }
+/* GRID */
+.royal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+}
 
-    .card-img-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: 0.8s;
-    }
+/* CARD */
+.royal-card {
+    position: relative;
+    height: 520px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: transparent;
+    cursor: pointer;
+    transition: 0.6s;
+}
 
-    .luxury-card:hover .card-img-box img {
-        transform: scale(1.1);
-    }
+.royal-card:hover {
+    transform: scale(1.03);
+}
 
-    .card-info {
-        width: 55%;
-        padding: 40px;
-    }
+/* MEDIA */
+.card-video-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
-    /* ЖАҢЫ: Даяр болуу убактысы үчүн стиль */
-    .ready-time-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.7rem;
-        color: #888;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+.card-video-wrap video,
+.card-video-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    .piece-tag {
-        display: block;
-        color: var(--accent);
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-    }
+/* OVERLAY */
+.card-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+}
 
-    .card-info h3 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2rem;
-        margin-bottom: 10px;
-        line-height: 1.2;
-    }
+/* CONTENT */
+.card-content {
+    transform: translateY(40px);
+    opacity: 0;
+    transition: 0.6s;
+    color: #ffffff;
+}
 
-    .item-price {
-        display: block;
-        font-size: 1.8rem;
-        font-family: 'Playfair Display', serif;
-        font-weight: 700;
-        margin: 20px 0 30px 0;
-        color: var(--text);
-    }
+.royal-card:hover .card-content {
+    transform: translateY(0);
+    opacity: 1;
+}
 
-    .buy-btn-premium {
-        display: inline-block;
-        padding: 18px 40px;
-        background: var(--text);
-        color: var(--bg);
-        text-decoration: none;
-        border-radius: 100px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        transition: 0.4s;
-    }
+.royal-tag {
+    color: var(--royal-gold);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+}
 
-    .buy-btn-premium:hover {
-        background: #25d366; /* WhatsApp жашыл түсү */
-        color: white;
-        transform: scale(1.05);
-    }
+/* TITLE FIX */
+.card-content h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    margin: 10px 0;
+    color: #ffffff;
 
-    /* МОБИЛДИК ВЕРСИЯ */
-    @media (max-width: 991px) {
-        .price-grid { grid-template-columns: 1fr; }
-        .luxury-card { flex-direction: column; border-radius: 30px; }
-        .card-img-box, .card-info { width: 100%; }
-        .card-img-box { height: 300px; }
-        .card-info { padding: 40px 30px; text-align: center; }
-        .ready-time-tag { justify-content: center; }
-    }
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* PRICE */
+.royal-price {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* LIKE */
+.royal-like {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.4rem;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 5;
+}
+
+/* ❤️ КЫЗЫЛ LIKE */
+.royal-like.active {
+    color: #ff2e63;
+    transform: scale(1.2);
+    text-shadow: 0 0 10px rgba(255, 46, 99, 0.7);
+}
+
+/* BUTTON */
+.royal-btn {
+    display: inline-block;
+    background: var(--gold-gradient);
+    color: #000;
+    padding: 12px 25px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+    .royal-card { height: 450px; }
+}
 </style>
 
-<div class="price-wrapper">
-    <div class="page-header" data-aos="fade-down">
-        <p style="letter-spacing: 5px; opacity: 0.5; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 15px;">Премиум тандоо</p>
-        <h1>Топтомдор жана Баалар</h1>
+<div class="showcase-wrapper">
+
+    <div class="showcase-header">
+        <h1>Баалары</h1>
     </div>
 
-    <div class="price-grid">
-    {% for set in sets %}
-    <div class="luxury-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
-        <div class="card-img-box">
-            <img src="{{ set.image.url }}" alt="{{ set.title }}">
-        </div>
-        <div class="card-info">
-            <div class="ready-time-tag">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                Даяр болот: {{ set.ready_time }}
+    <div class="royal-grid">
+        {% for set in sets %}
+        <div class="royal-card">
+
+            <div class="card-video-wrap">
+                {% if set.video %}
+                <video autoplay muted loop playsinline preload="auto" poster="{{ set.image.url }}">
+                    <source src="{{ set.video.url }}" type="video/mp4">
+                </video>
+                {% else %}
+                <img src="{{ set.image.url }}">
+                {% endif %}
             </div>
-            <span class="piece-tag">{{ set.pieces }} даана</span>
-            <h3>{{ set.title }}</h3>
-            <span class="item-price">{{ set.price }} сом</span>
-            
-            <a href="https://wa.me/996704034209?text={{ set.whatsapp_msg|urlencode }}" 
-               class="buy-btn-premium" 
-               target="_blank">
-               Заказ берүү
-            </a>
+
+            <div class="royal-like" onclick="toggleLike(this)">
+                <i class="far fa-heart"></i>
+            </div>
+
+            <div class="card-overlay">
+                <div class="card-content">
+                    <span class="royal-tag">штук • {{ set.pieces }}</span>
+
+                    <h3>{{ set.title }}</h3>
+
+                    <div class="royal-price">{{ set.price }} сом</div>
+
+                    <a href="https://wa.me/996704034209?text={{ set.whatsapp_msg|urlencode }}" class="royal-btn">
+                        Брондоо
+                    </a>
+                </div>
+            </div>
+
         </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <div style="grid-column: 1/-1; text-align: center; padding: 50px; opacity: 0.5;">
-        <p>Азырынча топтомдор кошула элек.</p>
-    </div>
-    {% endfor %}
-    </div>
+
 </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        AOS.init({ duration: 1000, once: true });
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("video").forEach(video => {
+        video.muted = true;
+        video.play().catch(() => {});
     });
+});
+
+function toggleLike(el) {
+    el.classList.toggle('active');
+    let icon = el.querySelector('i');
+    icon.classList.toggle('fas');
+    icon.classList.toggle('far');
+}
+
+document.querySelectorAll("video").forEach(v => {
+    v.addEventListener("error", () => {
+        v.style.display = "none";
+    });
+});
 </script>
+
 {% endblock %}
