@@ -17,17 +17,27 @@
         --standard-radius: 15px;
     }
 
-    /* 🎨 РЕККЕ ЧЫККАН КАРТОЧКАЛАР ҮЧҮН АНИМАЦИЯ */
+    /* 🎨 НЕГИЗГИ ДИЗАЙН ЖАНА АНИМАЦИЯЛАР */
     .royal-card {
-        position: relative; height: 480px; border-radius: var(--standard-radius); overflow: hidden;
-        transition: 0.3s; border: 1px solid var(--glass-border); background: #1a1a1a;
-        cursor: pointer; z-index: 1;
+        position: relative;
+        height: 480px;
+        border-radius: var(--standard-radius);
+        overflow: hidden;
+        transition: 0.3s;
+        border: 1px solid var(--glass-border);
+        background: #1a1a1a;
+        cursor: pointer;
+        z-index: 1;
     }
 
     .royal-card::before {
-        content: ''; position: absolute; inset: -2px;
-        background: var(--gold-gradient); z-index: -1;
-        opacity: 0.3; border-radius: 17px;
+        content: '';
+        position: absolute;
+        inset: -2px;
+        background: var(--gold-gradient);
+        z-index: -1;
+        opacity: 0.3;
+        border-radius: 17px;
         animation: pulseGold 2s infinite ease-in-out;
     }
 
@@ -40,9 +50,13 @@
     .showcase-wrapper { max-width: 1400px; margin: auto; padding: 20px 15px; }
     .showcase-header { text-align: center; margin-bottom: 30px; }
     .showcase-header h1 {
-        font-family: 'Cinzel', serif; font-size: clamp(1.5rem, 5vw, 2.5rem);
-        background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        text-transform: uppercase; letter-spacing: 3px;
+        font-family: 'Cinzel', serif;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        letter-spacing: 3px;
     }
 
     .royal-grid {
@@ -66,44 +80,66 @@
     }
 
     .card-overlay {
-        position: absolute; inset: 0; padding: 20px;
-        display: flex; flex-direction: column; justify-content: flex-end;
+        position: absolute;
+        inset: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         align-items: flex-start;
-        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
         z-index: 2;
-        opacity: 0;
-        transform: translateY(100%);
+        /* Бул жерде opacity: 0 жана transform өчүрүлдү, баасы дайыма көрүнүп турат */
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .royal-card:hover .card-overlay,
-    .royal-card:active .card-overlay {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
     .card-overlay h3 {
-        font-family: 'Cinzel', serif; font-size: 1.2rem; color: #ffffff !important;
-        margin: 5px 0; text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
-    }
-    .royal-price {
-        font-size: 1.4rem; color: var(--royal-gold) !important;
-        margin-bottom: 15px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        font-family: 'Cinzel', serif;
+        font-size: 1.2rem;
+        color: #ffffff !important;
+        margin: 5px 0;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
     }
 
-    .like-container { position: absolute; top: 15px; right: 15px; z-index: 11; display: flex; flex-direction: column; align-items: center; }
+    .royal-price {
+        font-size: 1.4rem;
+        color: var(--royal-gold) !important;
+        margin-bottom: 15px;
+        font-weight: 700;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    }
+
+    /* ❤️ ЛАЙК СЕКЦИЯСЫ */
+    .like-container {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 11;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .like-btn {
-        background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px); border: 1px solid var(--glass-border);
-        color: #fff; width: 42px; height: 42px; border-radius: 50%; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(5px);
+        border: 1px solid var(--glass-border);
+        color: #fff;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: 0.3s;
     }
 
-    /* 🔴 ЛАЙК БАСЫЛГАНДАГЫ ТҮС */
     .like-btn.active {
         background: rgba(255, 71, 87, 0.2);
         border-color: #ff4757;
     }
+
     .like-btn.active i {
         color: #ff4757;
         transform: scale(1.2);
@@ -136,63 +172,191 @@
         transition: 0.3s;
         box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2);
     }
-    .royal-btn:active { transform: scale(0.95); }
 
+    /* 📦 МОДАЛДЫК ТЕРЕЗЕ ЖАНА ФОРМА */
     .lux-modal {
-        display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-        backdrop-filter: blur(10px); z-index: 9999; align-items: center; justify-content: center; padding: 15px;
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(10px);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
     }
+
     .lux-modal-content {
-        width: 100%; max-width: 400px; padding: 25px; border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        padding: 25px;
+        border-radius: 20px;
         background: rgba(30, 30, 30, 0.95);
-        backdrop-filter: blur(20px); color: #fff; position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-        max-height: 90vh; overflow-y: auto;
+        backdrop-filter: blur(20px);
+        color: #fff;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .close-x { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; border:none; background:none; color: #aaa; }
+
     .input-group { margin-bottom: 18px; }
     .input-group label { display: block; font-size: 0.8rem; margin-bottom: 6px; font-weight: 700; color: var(--royal-gold); }
-    .input-group input, .input-group textarea {
-        width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #fff; outline: none;
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        width: 100%;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        color: #fff;
+        outline: none;
         transition: 0.3s;
     }
-    .input-group input:focus { border-color: var(--royal-gold); background: rgba(255, 255, 255, 0.12); }
 
+ /* 🌍 ӨЛКӨ ТАНДОО ҮЧҮН GLASS STYLE */
+.country-selector {
+    width: 110px !important;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    cursor: pointer;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* select option dark көрүнүш */
+.country-selector option {
+    background: #1a1a1a;
+    color: #fff;
+}
+/* ⏰ ТЕЗ ЖЕТКИРҮҮ SELECT GLASS */
+#deliveryTime {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+#deliveryTime option {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+    /* 🔘 ТӨГӨРӨК ТӨМӨН ТИПТЕГИ БАСКЫЧТАР */
     .sliding-toggle {
-        display: flex; background: rgba(0,0,0,0.3); border-radius: 12px; position: relative;
-        margin-bottom: 20px; padding: 4px; border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        background: #0f0f0f;
+        border-radius: 12px;
+        position: relative;
+        margin-bottom: 20px;
+        padding: 4px;
+        border: 1px solid rgba(255,255,255,0.1);
     }
-    .toggle-slider {
-        position: absolute; height: calc(100% - 8px); width: calc(50% - 4px);
-        background: var(--accent-green); border-radius: 10px; transition: 0.3s; z-index: 1;
-    }
-    .toggle-opt { flex: 1; text-align: center; padding: 10px; cursor: pointer; position: relative; z-index: 2; font-weight: 600; font-size: 0.85rem; }
-    .toggle-opt.active-text { color: #fff !important; }
 
-    .qr-container { display: none; text-align: center; margin: 15px 0; padding: 15px; background: #fff; border-radius: 20px; border: 2px solid var(--mbank-blue); }
-    .qr-container img { width: 140px; border-radius: 10px; }
+    .toggle-slider {
+        position: absolute;
+        height: calc(100% - 8px);
+        width: calc(50% - 4px);
+        background: var(--accent-green);
+        border-radius: 10px;
+        transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        z-index: 1;
+    }
+
+    .toggle-opt {
+        flex: 1;
+        text-align: center;
+        padding: 12px;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: #fff;
+        transition: 0.3s;
+    }
+
+    /* 🏦 МБАНК ЖАНА QR */
+    .qr-container {
+        display: none;
+        text-align: center;
+        margin: 15px 0;
+        padding: 20px;
+        background: #1a1a1a;
+        border: 2px solid var(--mbank-blue);
+        border-radius: 20px;
+    }
+
+    .qr-container img { width: 100%; max-width: 250px; border-radius: 10px; }
 
     .copy-btn {
-        margin-top: 8px; background: var(--mbank-blue); color: white; border: none;
-        padding: 8px 16px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-weight: 700;
+        margin-top: 10px;
+        background: var(--mbank-blue);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        font-weight: 700;
         transition: 0.2s;
+        width: 100%;
     }
-    .copy-btn:active { transform: scale(0.95); }
 
-    .summary-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin: 25px 0; border: 1px solid rgba(255,255,255,0.1); }
+    /* 💰 КОРУТУНДУ ЖАНА ЖӨНӨТҮҮ */
+    .summary-box {
+        background: rgba(255,255,255,0.05);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 25px 0;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
     .sum-row { display: flex; justify-content: space-between; align-items: center; }
     .final-total { font-size: 1.4rem; color: var(--accent-green); font-weight: 800; }
     .delivery-note { font-size: 0.85rem; color: #ff6b6b; margin-top: 5px; display: block; font-weight: 700; }
 
     .send-btn {
-        width: 100%; margin-top: 10px; padding: 18px; border-radius: 15px; border: none;
-        background: var(--gold-gradient); color: #000; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 1rem;
-        transition: 0.3s; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        width: 100%;
+        margin-top: 10px;
+        padding: 18px;
+        border-radius: 15px;
+        border: none;
+        background: var(--gold-gradient);
+        color: #000;
+        font-weight: 800;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-size: 1rem;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
     }
-    .send-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3); }
-    .send-btn:active { transform: scale(0.98); }
+
+    /* 🎁 БЕЛЕК ТАНДОО */
+    .gift-option {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 105, 180, 0.1);
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px dashed var(--glass-pink);
+        cursor: pointer;
+    }
+
+    .gift-option input { width: 18px; height: 18px; cursor: pointer; accent-color: #ff69b4; }
 </style>
 
 <div class="showcase-wrapper">
@@ -209,8 +373,11 @@
                 <span class="like-count" id="like-count-{{ set.id }}">{{ set.likes }}</span>
             </div>
             <div class="card-video-wrap">
-                {% if set.video %}<video autoplay muted loop playsinline><source src="{{ set.video.url }}" type="video/mp4"></video>
-                {% else %}<img src="{{ set.image.url }}" alt="{{ set.title }}">{% endif %}
+                {% if set.video %}
+                    <video autoplay muted loop playsinline><source src="{{ set.video.url }}" type="video/mp4"></video>
+                {% else %}
+                    <img src="{{ set.image.url }}" alt="{{ set.title }}">
+                {% endif %}
             </div>
             <div class="card-overlay">
                 <span style="color:var(--royal-gold); font-weight:700;">{{ set.pieces }} <span data-lang-key="pcs">шт</span></span>
@@ -232,15 +399,27 @@
             <label data-lang-key="name_label"><i class="fas fa-user"></i> Атыңыз</label>
             <input type="text" id="userName" data-lang-key="name_placeholder">
         </div>
+
         <div class="input-group">
             <label data-lang-key="phone_label"><i class="fas fa-phone"></i> Телефон номериңиз</label>
-            <input type="tel" id="userPhone" value="+996" maxlength="13">
+            <div class="phone-input-container">
+                <select id="countrySelect" class="country-selector" onchange="changeCountry()">
+                    <option value="+996">🇰🇬 +996</option>
+                    <option value="+7">🇷🇺 +7 (RU)</option>
+                    <option value="+7">🇰🇿 +7 (KZ)</option>
+                    <option value="+998">🇺🇿 +998</option>
+                    <option value="+992">🇹🇯 +992</option>
+                    <option value="+90">🇹🇷 +90</option>
+                    <option value="+971">🇦🇪 +971</option>
+                </select>
+                <input type="tel" id="userPhone" value="+996" maxlength="16">
+            </div>
         </div>
 
         <div class="sliding-toggle">
             <div id="typeSlider" class="toggle-slider" style="left: 4px;"></div>
-            <div class="toggle-opt active-text" id="optDelivery" onclick="switchDelivery(true)" data-lang-key="delivery_opt">Доставка</div>
-            <div class="toggle-opt" id="optSelf" onclick="switchDelivery(false)" data-lang-key="self_opt">Өзүм келем</div>
+            <div class="toggle-opt" id="optDelivery" onclick="switchDelivery(true)" data-lang-key="delivery_opt">Доставка</div>
+            <div class="toggle-opt" id="optSelf" onclick="switchDelivery(false)" data-lang-key="self_opt">Самовывоз</div>
         </div>
 
         <div class="input-group" id="addressGroup">
@@ -249,42 +428,52 @@
         </div>
 
         <div class="input-group">
-            <label data-lang-key="note_label"><i class="fas fa-comment-dots"></i> Кошумча маалымат (Куттуктоо ж.б.)</label>
-            <textarea id="userNote" rows="2" style="width: 100%; border-radius: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; padding: 10px; outline: none;" data-lang-key="note_placeholder"></textarea>
+            <label data-lang-key="time_select_label"><i class="fas fa-clock"></i> Качан жеткиребиз?</label>
+            <select id="deliveryTime">
+                <option value="Тезирээк" data-lang-key="time_asap">Тезирээк</option>
+                <option value="10:00 - 12:00">10:00 - 12:00</option>
+                <option value="12:00 - 14:00">12:00 - 14:00</option>
+                <option value="14:00 - 16:00">14:00 - 16:00</option>
+                <option value="16:00 - 18:00">16:00 - 18:00</option>
+                <option value="18:00 - 20:00">18:00 - 20:00</option>
+                <option value="20:00 - 22:00">20:00 - 22:00</option>
+            </select>
+        </div>
+
+        <label class="gift-option">
+            <input type="checkbox" id="isGift">
+            <span style="color: #fff; font-size: 0.9rem; font-weight: 600;" data-lang-key="gift_label">🎁 Бул белек (Анонимдүү)</span>
+        </label>
+
+        <div class="input-group">
+            <label data-lang-key="note_label"><i class="fas fa-comment-dots"></i> Кошумча маалымат</label>
+            <textarea id="userNote" rows="2" data-lang-key="note_placeholder"></textarea>
         </div>
 
         <div class="sliding-toggle">
             <div id="paySlider" class="toggle-slider" style="left: 4px;"></div>
-            <div class="toggle-opt active-text" id="payCash" onclick="switchPayment('cash')" data-lang-key="cash_opt">Наличка</div>
+            <div class="toggle-opt" id="payCash" onclick="switchPayment('cash')" data-lang-key="cash_opt">Наличка</div>
             <div class="toggle-opt" id="payMbank" onclick="switchPayment('mbank')" data-lang-key="mbank_opt">МБанк</div>
         </div>
-<div id="qrArea" class="qr-container" style="display: none; background: #1a1a1a; border: 2px solid var(--mbank-blue); padding: 20px; border-radius: 20px; margin: 15px 0; text-align: center;">
-    <div style="color:var(--mbank-blue); font-weight:800; font-size:1rem; margin-bottom:15px; text-transform: uppercase; letter-spacing: 1px;">
-        <i class="fas fa-university"></i> MBANK Төлөм
-    </div>
 
-    <div style="position: relative; display: inline-block; background: #fff; padding: 12px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0, 103, 244, 0.4);">
-     <img src="{% static 'images/QR1.jpg' %}"
-     alt="MBANK QR Искак Ж."
-     style="width: 100%; max-width: 250px; border-radius: 10px; display: block;">
-
-        <div style="color: #000; font-size: 0.8rem; margin-top: 8px; font-weight: 700; opacity: 0.9;">
-            Искак Ж.
+        <div id="qrArea" class="qr-container">
+            <div style="color:var(--mbank-blue); font-weight:800; font-size:1rem; margin-bottom:15px; text-transform: uppercase;">
+                <i class="fas fa-university"></i> MBANK Төлөм
+            </div>
+            <div style="position: relative; display: inline-block; background: #fff; padding: 12px; border-radius: 15px;">
+                <img src="{% static 'images/QR1.jpg' %}" alt="MBANK QR">
+                <div style="color: #000; font-size: 0.8rem; margin-top: 8px; font-weight: 700;">Искак Ж.</div>
+            </div>
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; border: 1px dashed var(--mbank-blue);">
+                    <span id="copyNum" style="font-size: 1.3rem; font-weight: 800; color: #fff;">0553956070</span><br>
+                    <button class="copy-btn" type="button" onclick="copyNumber()" data-lang-key="copy_btn">
+                        <i class="fas fa-copy"></i> Көчүрүү
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
-        <div style="color:#aaa; font-size: 0.8rem; margin-bottom: 8px;">Номерге которуу:</div>
-        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; border: 1px dashed var(--mbank-blue);">
-            <span id="copyNum" style="font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: 1px;">0553956070</span>
-            <br>
-            <button class="copy-btn" type="button" onclick="copyNumber()" data-lang-key="copy_btn"
-                    style="margin-top: 10px; width: 100%; background: var(--mbank-blue); color: #fff; padding: 12px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.85rem;">
-                <i class="fas fa-copy"></i> Көчүрүүнү басыңыз
-            </button>
-        </div>
-    </div>
-</div>
         <div class="summary-box">
             <div class="sum-row">
                 <span style="opacity:0.8; font-weight: 600;" data-lang-key="total_label">Жалпы сумма:</span>
@@ -293,12 +482,11 @@
             <span id="deliveryInfo" class="delivery-note" data-lang-key="delivery_note">+150 сом жеткирүү акысы кошулду</span>
         </div>
 
-        <button onclick="sendOrder()" id="mainSendBtn" class="send-btn" data-lang-key="send_btn">Заказды жөнөтүү</button>
+        <button onclick="sendOrder()" id="mainSendBtn" class="send-btn" data-lang-key="send_btn">ОТПРАВИТЬ ЗАКАЗ</button>
     </div>
 </div>
 
 <script>
-// 🌍 КОТОРМОЛОР
 const menuTranslations = {
     ky: {
         menu_title: "Биздин Меню", pcs: "шт", som: "сом", book_btn: "Брондоо",
@@ -306,12 +494,13 @@ const menuTranslations = {
         phone_label: "Телефон номериңиз", delivery_opt: "Доставка", self_opt: "Өзүм келем",
         address_label: "📍 Дарегиңиз", address_placeholder: "Ош шаары, дарек...",
         time_label: "📍 Саат канчада келесиз?", time_placeholder: "Мисалы: 18:00",
-        note_label: "Кошумча маалымат (Куттуктоо ж.б.)", note_placeholder: "Куттуктоо ж.б.",
+        note_label: "Кошумча маалымат", note_placeholder: "Куттуктоо ж.б.",
         cash_opt: "Наличка", mbank_opt: "МБанк", copy_btn: "Көчүрүүнү басыңыз",
         total_label: "Жалпы сумма:", delivery_note: "+150 сом жеткирүү акысы кошулду",
         send_btn: "Заказды жөнөтүү", copy_alert: "Номер көчүрүлдү: ", error_fill: "Сураныч, маалыматты толук толтуруңуз!",
         sending: "Жөнөтүлүүдө...", wa_header: "*🍓 Strawberry Art - ЖАҢЫ ЗАКАЗ*", wa_name: "Аты", wa_phone: "Номер",
-        wa_product: "Товар", wa_price: "Баасы", wa_pay: "Төлөм", wa_loc: "Дарек", wa_time: "Убакыт", wa_mbank: "⚠️ *МБанк чекти азыр тиркейм!*"
+        wa_product: "Товар", wa_price: "Баасы", wa_pay: "Төлөм", wa_loc: "Дарек", wa_time: "Убакыт", wa_mbank: "⚠️ *МБанк чекти азыр тиркейм!*",
+        time_select_label: "Качан жеткиребиз?", time_asap: "Тезирээк", gift_label: "🎁 Бул белек (Анонимдүү)", gift_yes: "Ооба 🎁", gift_no: "Жок"
     },
     ru: {
         menu_title: "Наше Меню", pcs: "шт", som: "сом", book_btn: "Заказать",
@@ -319,12 +508,13 @@ const menuTranslations = {
         phone_label: "Номер телефона", delivery_opt: "Доставка", self_opt: "Самовывоз",
         address_label: "📍 Ваш адрес", address_placeholder: "Город Ош, адрес...",
         time_label: "📍 Во сколько придете?", time_placeholder: "Например: 18:00",
-        note_label: "Доп. информация (Поздравления и т.д.)", note_placeholder: "Текст поздравления...",
+        note_label: "Доп. информация", note_placeholder: "Текст поздравления...",
         cash_opt: "Наличка", mbank_opt: "МБанк", copy_btn: "Нажмите для копирования",
         total_label: "Итоговая сумма:", delivery_note: "+150 сом включено за доставку",
-        send_btn: "Отправить заказ", copy_alert: "Номер скопирован: ", error_fill: "Пожалуйста, заполните все данные!",
+        send_btn: "ОТПРАВИТЬ ЗАКАЗ", copy_alert: "Номер скопирован: ", error_fill: "Пожалуйста, заполните все данные!",
         sending: "Отправка...", wa_header: "*🍓 Strawberry Art - НОВЫЙ ЗАКАЗ*", wa_name: "Имя", wa_phone: "Номер",
-        wa_product: "Товар", wa_price: "Цена", wa_pay: "Оплата", wa_loc: "Адрес", wa_time: "Время", wa_mbank: "⚠️ *Чек МБанка прикреплю сейчас!*"
+        wa_product: "Товар", wa_price: "Цена", wa_pay: "Оплата", wa_loc: "Адрес", wa_time: "Время", wa_mbank: "⚠️ *Чек МБанка прикреплю сейчас!*",
+        time_select_label: "Когда доставить?", time_asap: "Как можно быстрее", gift_label: "🎁 Это подарок (Анонимно)", gift_yes: "Да 🎁", gift_no: "Нет"
     },
     en: {
         menu_title: "Our Menu", pcs: "pcs", som: "som", book_btn: "Order Now",
@@ -332,14 +522,21 @@ const menuTranslations = {
         phone_label: "Phone Number", delivery_opt: "Delivery", self_opt: "Pickup",
         address_label: "📍 Your Address", address_placeholder: "Osh city, address...",
         time_label: "📍 What time will you arrive?", time_placeholder: "Example: 6:00 PM",
-        note_label: "Additional info (Greetings etc.)", note_placeholder: "Greetings text...",
+        note_label: "Additional info", note_placeholder: "Greetings text...",
         cash_opt: "Cash", mbank_opt: "MBANK", copy_btn: "Click to copy",
         total_label: "Total Amount:", delivery_note: "+150 som delivery fee added",
         send_btn: "Send Order", copy_alert: "Number copied: ", error_fill: "Please fill in all information!",
         sending: "Sending...", wa_header: "*🍓 Strawberry Art - NEW ORDER*", wa_name: "Name", wa_phone: "Phone",
-        wa_product: "Product", wa_price: "Price", wa_pay: "Payment", wa_loc: "Address", wa_time: "Time", wa_mbank: "⚠️ *Will attach MBANK receipt now!*"
+        wa_product: "Product", wa_price: "Price", wa_pay: "Payment", wa_loc: "Address", wa_time: "Time", wa_mbank: "⚠️ *Will attach MBANK receipt now!*",
+        time_select_label: "Delivery time?", time_asap: "ASAP", gift_label: "🎁 It's a gift (Anonymous)", gift_yes: "Yes 🎁", gift_no: "No"
     }
 };
+
+let currentSet = {};
+let isDelivery = true;
+let paymentMethod = 'cash';
+const DELIVERY_FEE = 150;
+const WHATSAPP_PHONE = "996553956070";
 
 function updateMenuLanguage() {
     const lang = localStorage.getItem('selectedLanguage') || 'ky';
@@ -349,6 +546,8 @@ function updateMenuLanguage() {
         if (t[key]) {
             if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
                 el.placeholder = t[key];
+            } else if (el.tagName === "OPTION") {
+                el.innerHTML = t[key];
             } else {
                 el.textContent = t[key];
             }
@@ -357,52 +556,26 @@ function updateMenuLanguage() {
     updateTotal();
 }
 
-document.addEventListener('DOMContentLoaded', updateMenuLanguage);
-setInterval(updateMenuLanguage, 1000);
+document.addEventListener('DOMContentLoaded', () => {
+    updateMenuLanguage();
+    switchDelivery(true);
+    switchPayment('cash');
+});
 
-let currentSet = {};
-let isDelivery = true;
-let paymentMethod = 'cash';
-const DELIVERY_FEE = 150;
-const WHATSAPP_PHONE = "996553956070";
+function changeCountry() {
+    const code = document.getElementById('countrySelect').value;
+    document.getElementById('userPhone').value = code;
+}
 
 document.getElementById('userPhone').addEventListener('input', function (e) {
-    if (!this.value.startsWith('+996')) {
-        this.value = '+996';
-    }
+    if (!this.value.startsWith('+')) this.value = '+' + this.value.replace(/[^\d]/g, '');
+    if (this.value.length > 16) this.value = this.value.slice(0, 16);
 });
 
 function copyNumber() {
     const num = "0553956070";
     const lang = localStorage.getItem('selectedLanguage') || 'ky';
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(num).then(() => {
-            alert(menuTranslations[lang].copy_alert + num);
-        }).catch(() => {
-            fallbackCopy(num);
-        });
-    } else {
-        fallbackCopy(num);
-    }
-}
-
-function fallbackCopy(text) {
-    const lang = localStorage.getItem('selectedLanguage') || 'ky';
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    textArea.style.position = "fixed";
-    textArea.style.left = "-9999px";
-    textArea.style.top = "0";
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-        document.execCommand('copy');
-        alert(menuTranslations[lang].copy_alert + text);
-    } catch (err) {
-        alert("Error copying.");
-    }
-    document.body.removeChild(textArea);
+    navigator.clipboard.writeText(num).then(() => alert(menuTranslations[lang].copy_alert + num));
 }
 
 function openBooking(btn, event) {
@@ -421,8 +594,8 @@ function switchDelivery(val) {
     const lang = localStorage.getItem('selectedLanguage') || 'ky';
     const t = menuTranslations[lang];
     document.getElementById('typeSlider').style.left = val ? '4px' : 'calc(50% - 4px)';
-    document.getElementById('optDelivery').classList.toggle('active-text', val);
-    document.getElementById('optSelf').classList.toggle('active-text', !val);
+    document.getElementById('optDelivery').style.color = val ? '#fff' : '#aaa';
+    document.getElementById('optSelf').style.color = !val ? '#fff' : '#aaa';
 
     document.getElementById('extraLabel').innerHTML = val ? `<i class="fas fa-map-marker-alt"></i> ${t.address_label}` : `<i class="fas fa-clock"></i> ${t.time_label}`;
     document.getElementById('extraInput').placeholder = val ? t.address_placeholder : t.time_placeholder;
@@ -434,18 +607,15 @@ function switchPayment(method) {
     paymentMethod = method;
     const paySlider = document.getElementById('paySlider');
     const qrArea = document.getElementById('qrArea');
-
     if (method === 'cash') {
-        paySlider.style.left = '4px';
-        paySlider.style.background = 'var(--accent-green)';
-        document.getElementById('payCash').classList.add('active-text');
-        document.getElementById('payMbank').classList.remove('active-text');
+        paySlider.style.left = '4px'; paySlider.style.background = 'var(--accent-green)';
+        document.getElementById('payCash').style.color = '#fff';
+        document.getElementById('payMbank').style.color = '#aaa';
         qrArea.style.display = 'none';
     } else {
-        paySlider.style.left = 'calc(50% - 4px)';
-        paySlider.style.background = 'var(--mbank-blue)';
-        document.getElementById('payCash').classList.remove('active-text');
-        document.getElementById('payMbank').classList.add('active-text');
+        paySlider.style.left = 'calc(50% - 4px)'; paySlider.style.background = 'var(--mbank-blue)';
+        document.getElementById('payCash').style.color = '#aaa';
+        document.getElementById('payMbank').style.color = '#fff';
         qrArea.style.display = 'block';
     }
 }
@@ -454,7 +624,7 @@ function updateTotal() {
     if(!currentSet.price) return;
     const lang = localStorage.getItem('selectedLanguage') || 'ky';
     let total = currentSet.price + (isDelivery ? DELIVERY_FEE : 0);
-    document.getElementById('finalTotal').textContent = total + ' ' + menuTranslations[lang].som;
+    document.getElementById('finalTotal').textContent = total + ' ' + (menuTranslations[lang].som || 'сом');
 }
 
 async function sendOrder() {
@@ -464,14 +634,14 @@ async function sendOrder() {
     const phone = document.getElementById('userPhone').value.trim();
     const extra = document.getElementById('extraInput').value.trim();
     const note = document.getElementById('userNote').value.trim();
+    const dTime = document.getElementById('deliveryTime').value;
+    const isGift = document.getElementById('isGift').checked ? t.gift_yes : t.gift_no;
     const total = document.getElementById('finalTotal').textContent;
     const btn = document.getElementById('mainSendBtn');
 
-    if(!name || phone.length < 13 || !extra) { alert(t.error_fill); return; }
+    if(!name || phone.length < 9 || !extra) { alert(t.error_fill); return; }
 
-    btn.disabled = true;
-    btn.textContent = t.sending;
-
+    btn.disabled = true; btn.textContent = t.sending;
     const payType = (paymentMethod === 'cash') ? t.cash_opt : t.mbank_opt;
 
     try {
@@ -479,47 +649,37 @@ async function sendOrder() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
             body: JSON.stringify({
-                name: name,
-                phone: phone,
-                address: extra,
-                product: currentSet.title,
-                total: total,
-                note: note,
-                payment_method: (paymentMethod === 'cash') ? 'Наличка' : 'МБанк',
-                is_delivery: isDelivery
+                name: name, phone: phone, address: extra, product: currentSet.title,
+                total: total, note: `Белек: ${isGift}, Убакыт: ${dTime}. ${note}`,
+                payment_method: (paymentMethod === 'cash') ? 'Наличка' : 'МБанк', is_delivery: isDelivery
             })
         });
     } catch (e) { console.error(e); }
 
-    let msg = `${t.wa_header}\n\n` +
-              `👤 *${t.wa_name}:* ${name}\n` +
-              `📞 *${t.wa_phone}:* ${phone}\n` +
-              `🛍 *${t.wa_product}:* ${currentSet.title}\n` +
-              `💰 *${t.wa_price}:* ${total}\n` +
-              `💵 *${t.wa_pay}:* ${payType}\n` +
-              `📍 *${isDelivery ? t.wa_loc : t.wa_time}:* ${extra}`;
+ let msg = `\u{1F353} *Жаны заказ*
 
-    if (paymentMethod === 'mbank') {
-        msg += `\n${t.wa_mbank}`;
-    }
+\u{1F464} *Аты:* ${name}
+\u260E *Телефон:* ${phone}
+\u{1F490} *Букет:* ${currentSet.title}
+\u{1F4B0} *Сумма:* ${total}
+\u{1F4CD} *${isDelivery ? "Дарек" : "Убакыт"}:* ${extra}
+\u23F0 *Жеткируу:* ${dTime}
+\u{1F381} *Белек:* ${isGift}
+\u{1F4DD} *Эскертүү:* ${note || "Жок"}
+\u{1F4B3} *Төлөм:* ${payType}`;
 
+    if (paymentMethod === 'mbank') msg += `\n${t.wa_mbank}`;
     window.location.href = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
 }
 
-// 🟢 ЛАЙК БАСУУ ФУНКЦИЯСЫ
 async function toggleLike(btn, event, setId) {
     event.stopPropagation();
     const countElement = document.getElementById(`like-count-${setId}`);
     let isActive = btn.classList.contains('active');
     let currentCount = parseInt(countElement.textContent) || 0;
 
-    if (!isActive) {
-        countElement.textContent = currentCount + 1;
-        btn.classList.add('active');
-    } else {
-        countElement.textContent = Math.max(0, currentCount - 1);
-        btn.classList.remove('active');
-    }
+    if (!isActive) { countElement.textContent = currentCount + 1; btn.classList.add('active'); }
+    else { countElement.textContent = Math.max(0, currentCount - 1); btn.classList.remove('active'); }
 
     try {
         const response = await fetch(`/toggle-like/${setId}/`, {
@@ -529,10 +689,9 @@ async function toggleLike(btn, event, setId) {
         if (response.ok) {
             const data = await response.json();
             countElement.textContent = data.total_likes;
-            if (data.is_liked) btn.classList.add('active');
-            else btn.classList.remove('active');
+            if (data.is_liked) btn.classList.add('active'); else btn.classList.remove('active');
         }
-    } catch (e) { console.error("Error:", e); }
+    } catch (e) { console.error(e); }
 }
 
 window.onclick = e => { if(e.target == document.getElementById('bookingModal')) closeModal(); }

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
 from shop import views
 
 urlpatterns = [
@@ -10,6 +11,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('price/', views.price, name='price'),
     path('contact/', views.contact, name='contact'),
+
+path('google46a46ad5f8267878.html', lambda r: HttpResponse("google-site-verification: google46a46ad5f8267878.html")),
 
     # --- 💬 ПИКИРЛЕР БӨЛҮМҮ ---
     path('reviews/', views.reviews, name='reviews'),
