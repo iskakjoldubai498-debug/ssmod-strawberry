@@ -15,6 +15,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sitemaps',
+    'django.contrib.sites',
     
     # Cloudinary staticfiles'тан ЖОГОРУ турушу шарт!
     'cloudinary_storage',
@@ -23,7 +25,7 @@ INSTALLED_APPS = [
     
     'shop',
 ]
-
+SITE_ID = 1
 # --- MIDDLEWARE ---
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

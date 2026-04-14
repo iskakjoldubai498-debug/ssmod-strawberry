@@ -265,3 +265,11 @@ def contact(request):
 
 def page_not_found(request, exception):
     return render(request, 'shop/404.html', status=404)
+def custom_page_not_found(request, exception):
+    """ 404 катасы (бет табылган жок) """
+    active_music = BackgroundMusic.objects.filter(is_active=True).first()
+    return render(request, 'shop/404.html', {'active_music': active_music}, status=404)
+
+def custom_server_error(request):
+    """ 500 катасы (сервердик ката) """
+    return render(request, 'shop/500.html', status=500)
